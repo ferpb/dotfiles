@@ -37,11 +37,14 @@ export NVM_DIR="/Users/user/.nvm"
 # Flutter
 export PATH="$PATH:`pwd`/flutter/bin"
 
+# bin directory
+export PATH="$PATH:~/bin"
+
 
 # Aliases
 
 # alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-#alias vimdiff="/Applications/MacVim.app/Contents/MacOS/Vim -d"
+# alias vimdiff="/Applications/MacVim.app/Contents/MacOS/Vim -d"
 
 alias ll="ls -lFha"
 
@@ -62,4 +65,3 @@ alias matlab="/Applications/MATLAB_R2018b.app/bin/matlab"
 
 ## Procesadores de lenguajes
 alias minilengcompiler="java -cp ~/ProcesadoresLenguajes/workspace/MiniLeng/bin/ analizador.minilengcompiler"
-alias minilengcompiler1="java -cp ~/MiniLeng-Compiler/src javacc.MiniLengCompiler"

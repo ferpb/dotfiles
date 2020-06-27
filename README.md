@@ -31,3 +31,5 @@ ln -s ~/dotfiles/.config/karabiner ~/.config/karabiner
 ln -s ~/dotfiles/Internacional-adaptado.bundle /Library/Keyboard\ Layouts/Internacional-adaptado.bundle
 
 ln -s ~/dotfiles/bin ~/bin
+
+ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf

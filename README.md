@@ -6,7 +6,7 @@ Están a la espera de ser ordenados un poco y de hacer un script o utilizar alg�
 
 Por ahora, se pueden crear enlaces simbólicos a mano con los ficheros necesarios. Por ejemplo, para enlazar `.bashrc`:
 ```
-ln -s ~/dotfiles/.bashrc ~/.basrhc
+ln -s ~/dotfiles/.bashrc ~/.bashrc
 ```
 
 Siéntete libre de coger cualquier trozo de código que te parezca interesante.
@@ -29,3 +29,5 @@ ln -s ~/dotfiles/.emacs.d ~/.emacs.d
 ln -s ~/dotfiles/.config/karabiner ~/.config/karabiner
 
 ln -s ~/dotfiles/Internacional-adaptado.bundle /Library/Keyboard\ Layouts/Internacional-adaptado.bundle
+
+ln -s ~/dotfiles/bin ~/bin

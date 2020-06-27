@@ -1,0 +1,19 @@
+# Emacs
+
+## Ficheros
+.lsp-session*
+.org-id-locations
+
+bookmarks
+ido.last
+places
+recentf
+tramp
+
+
+## Directorios
+games
+elpa
+backups
+auto-save-list
+url

@@ -22,10 +22,10 @@ ln -s ~/dotfiles/.inputrc ~/.inputrc
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig  # Cuidado
 
 ln -s ~/dotfiles/.vimrc ~/.vimrc
-ln -s ~/dotifles/.vim ~/.vim
+ln -s ~/dotfiles/.vim ~/.vim
 
 ln -s ~/dotfiles/.emacs.d ~/.emacs.d
 
 ln -s ~/dotfiles/.config/karabiner ~/.config/karabiner
 
-ln -s ~/dotfiles/Internacional-adaptado.bundle ~/Library/Keyboard\ Layouts/Internacional-adaptado.bundle
+ln -s ~/dotfiles/Internacional-adaptado.bundle /Library/Keyboard\ Layouts/Internacional-adaptado.bundle

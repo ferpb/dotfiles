@@ -6,6 +6,7 @@
 "    git clone https://github.com/k-takata/minpac
 
 command! PackUpdate packadd minpac | source $MYVIMRC | redraw | call minpac#update()
+" After updating, the messages can be seen on :messages
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus  packadd minpac | source $MYVIMRC | call minpac#status()
 
@@ -51,3 +52,5 @@ call minpac#add('sheerun/vim-polyglot')
 call minpac#add('cohama/lexima.vim')
 
 call minpac#add('romainl/vim-cool')
+
+call minpac#add('itchyny/lightline.vim')

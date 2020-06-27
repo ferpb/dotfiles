@@ -7,16 +7,16 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-
 " gd - go to definition of word under cursor
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+" gr - find references
+nmap <silent> gr <Plug>(coc-references)
 
+"gy - go to type definition
+nmap <silent> gy <Plug>(coc-type-definition)
 " gi - go to implementation
 nmap <silent> gi <Plug>(coc-implementation)
 
-" gr - find references
-nmap <silent> gr <Plug>(coc-references)
 
 " gh - get hint on whatever's under the cursor
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -29,7 +29,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
 
 
 

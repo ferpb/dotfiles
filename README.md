@@ -6,7 +6,7 @@ Están a la espera de ser ordenados un poco y de hacer un script o utilizar alg�
 
 Por ahora, se pueden crear enlaces simbólicos a mano con los ficheros necesarios. Por ejmplo, para enlazar `.bashrc`:
 ```
-ln -s ~/dotfiles/.bashrc ~/.basrhc.
+ln -s ~/dotfiles/.bashrc ~/.basrhc
 ```
 
 Siéntete libre de coger cualquier trozo de código que te parezca interesante.

@@ -1,0 +1,14 @@
+[user]
+	name = fernando
+	email = ferpb1999@gmail.com
+	username = ferpb
+[filesystem "Oracle Corporation|11|/dev/disk0s2"]
+	timestampResolution = 1000 milliseconds
+	minRacyThreshold = 0 nanoseconds
+[core]
+	editor = /Applications/MacVim.app/Contents/MacOS/Vim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

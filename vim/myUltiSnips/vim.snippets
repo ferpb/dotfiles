@@ -1,0 +1,35 @@
+snippet sign "Signature"
+Un Saludo
+
+Fernando Peña
+endsnippet
+
+
+snippet t "A simple HTML tag"
+<${1:div}>
+	Hello World
+</$1>
+endsnippet
+
+
+snippet today "Date"
+`date +%F`
+endsnippet
+
+# Se puede usar código python dentro de los snippets
+# usando un bloque `!p ...`
+snippet box "Box"
+`!p snip.rv = '┌' + '-' * (len(t[1]) + 2) + '┐'`
+| $1 |
+`!p snip.rv = '└' + '-' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+
+
+
+# snip.rv es el valor de retorno, el texto que reemplazará
+# el bloque de python dentro de la definición del snippet.
+# Está inicializada con la cadena vacía.
+# Dentro del bloque Python, se tiene acceso al estado
+# del snippet: p.e. t[1] contiene la primera parada del
+# snippet, fn contiene el nombre del fichero...

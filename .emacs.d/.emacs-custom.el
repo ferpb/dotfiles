@@ -21,7 +21,7 @@
  '(delete-selection-mode t)
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(which-key dap-mode lsp-ui lsp-mode auctex gruvbox-theme company-posframe company-postframe company-box latex-preview-pane latex-preview-pane-mode evil-org evil-surround evil-collection eglot rainbow-delimiters evil-commentary evil exec-path-from-shell smex nlinum))
+   '(undo-tree which-key dap-mode lsp-ui lsp-mode auctex gruvbox-theme company-posframe company-postframe company-box latex-preview-pane latex-preview-pane-mode evil-org evil-surround evil-collection eglot rainbow-delimiters evil-commentary evil exec-path-from-shell smex nlinum))
  '(pdf-view-midnight-colors '("#fdf4c1" . "#282828")))
 
 (custom-set-faces

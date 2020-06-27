@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Reads a decimal number from standard input and prints it in binary
+
+bc -q <(echo "obase=2")

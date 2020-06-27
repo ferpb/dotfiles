@@ -1,3 +1,27 @@
 set completion-ignore-case on
 set show-all-if-ambiguous on
 TAB: menu-complete
+
+set editing-mode vi
+
+# Display vim mode
+# set show-mode-in-prompt on
+# set vi-cmd-mode-string "\1\e[2 q\2(cmd)"
+# set vi-ins-mode-string "\1\e[6 q\2(ins)"
+
+
+$if mode=vi
+	set keymap vi-command
+
+	set keymap vi-insert
+	"\C-p":previous-history
+	"\C-n":next-history
+	"\C-a":beginning-of-line
+	"\C-e":end-of-line
+	"\C-l":clear-screen
+	"\033f": forward-word
+	"\033b": backward-word
+$endif
+
+# Remove delay when pressing ESC
+set keyseq-timeout 0

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Prints current weather
+
+curl wttr.in

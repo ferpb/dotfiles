@@ -10,7 +10,14 @@
 :END:
 <<babel-init>>
 
-This is my Emacs config file. It's written in the literate programming style in Org Mode. It's very convenient for organizing the code in sections and commenting each block.
+This is my Emacs config file. It's written in the literate programming style in
+Org Mode. It's very convenient for organizing the code in sections and
+commenting each block.
+
+This file is inspired on Sacha Chua's Emacs configuration: [[http://pages.sachachua.com/.emacs.d/Sacha.html]]
+
+To tangle the code blocks into a new ~init.el~ file after making some changes,
+use =C-c C-v t= (org-babel-tangle).
 
 ** Starting up
 *** Custom startup directory
@@ -105,7 +112,9 @@ and start next line with correct indentation.
 #+END_SRC
      
 ** Evil Mode
-I use Evil Mode because I love Vim keybindings.
+I'm using Evil Mode because like Vim keybindings. However, there are some
+inconsistencies across differente modes, so maybe I'll start using Emacs default
+ones.
 
 *** Configure Evil Mode
 
@@ -406,6 +415,7 @@ Indent using spaces
 #+BEGIN_SRC emacs-lisp :tangle no
 (global-hl-line-mode t)
 #+END_SRC
+
 *** Spell checking
 Set Hunspell as spell checking engine and configure it to use English and
 Spanish dictionaries
@@ -664,6 +674,7 @@ https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
   (setq company-minimum-prefix-length 1
         company-idle-delay 0.0)
 #+end_src
+
 ** Org Mode
 Configuration for Org Mode
 
@@ -707,6 +718,7 @@ files that I'd like to see indented.
 #+BEGIN_SRC emacs-lisp
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
 #+END_SRC
+
 ** LaTeX
 *** Configure AUCTeX
 

@@ -1,0 +1,10 @@
+.netrwhist
+
+pack
+
+undo-dir
+
+pythonx/*
+!pythonx/snippet_helpers.py
+
+view

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Very simple calculator using Arithmetic Expansion
+
+echo "$(($@))"

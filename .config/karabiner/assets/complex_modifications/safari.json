@@ -1,0 +1,27 @@
+{
+    "title": "Cambios en safari",
+    "rules": [
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "com.apple.Safari"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "safari right_command to right_control",
+                    "from": {
+                        "key_code": "right_command"
+                    },
+                    "to": {
+                        "key_code": "right_control"
+                    },
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

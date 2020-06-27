@@ -1,0 +1,27 @@
+{
+    "title": "Cambios en vim",
+    "rules": [
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "org.vim.MacVim"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "vim right_command to right_control",
+                    "from": {
+                        "key_code": "right_command"
+                    },
+                    "to": {
+                        "key_code": "right_control"
+                    },
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

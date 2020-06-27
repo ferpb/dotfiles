@@ -1,0 +1,127 @@
+{
+    "title": "Cambios en emacs",
+    "rules": [
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "org.gnu.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "emacs left_command to left_option",
+                    "from": {
+                        "key_code": "left_command"
+                    },
+                    "to": {
+                        "key_code": "left_option"
+                    },
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "org.gnu.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "emacs right_command to right_option",
+                    "from": {
+                        "key_code": "right_command"
+                    },
+                    "to": {
+                        "key_code": "right_option"
+                    },
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "org.gnu.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "emacs left_option to left_command",
+                    "from": {
+                        "key_code": "left_option"
+                    },
+                    "to": {
+                        "key_code": "left_command"
+                    },
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "org.gnu.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "emacs right_option to right_command",
+                    "from": {
+                        "key_code": "right_option"
+                    },
+                    "to": {
+                        "key_code": "right_command"
+                    },
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "description": "emacs Change return to control if pressed with other keys, to return if pressed alone",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "org.gnu.Emacs"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "from": {
+                        "key_code": "return_or_enter",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_control"
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "return_or_enter"
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "title": "Cambios en chrome",
+    "rules": [
+        {
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "bundle_identifiers" : [
+                                "com.google.Chrome"
+                            ],
+                            "type": "frontmost_application_if"
+                        }
+                    ],
+                    "description": "chrome right_command to right_control",
+                    "from": {
+                        "key_code": "right_command"
+                    },
+                    "to": {
+                        "key_code": "right_control"
+                    },
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}

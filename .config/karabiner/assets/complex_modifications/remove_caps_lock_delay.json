@@ -1,0 +1,27 @@
+{
+  "title": "Remove Caps Lock delay",
+  "rules": [
+    {
+      "description": "Remove Caps Lock delay",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock"
+          },
+          "to": [
+            {
+              "key_code": "caps_lock"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "caps_lock",
+              "hold_down_milliseconds": 50
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

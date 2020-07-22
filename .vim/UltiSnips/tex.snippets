@@ -3,26 +3,40 @@ snippet template "Basic template" b
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage[dutch]{babel}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[indent]{parskip}
+
+\usepackage{csquotes}
+
 \usepackage{amsmath, amssymb}
+\usepackage{url}
 
+\usepackage{xcolor}
+\usepackage{float}
 
-% figure support
-\usepackage{import}
-\usepackage{xifthen}
-\pdfminorversion=7
-\usepackage{pdfpages}
-\usepackage{transparent}
-\newcommand{\incfig}[1]{%
-	\def\svgwidth{\columnwidth}
-	\import{./figures/}{#1.pdf_tex}
-}
+\usepackage{biblatex}
+\addbibresource{fuentes.bib}
 
-\pdfsuppresswarningpagegroup=1
+\usepackage{booktabs}
+
+\usepackage{graphicx}
+\graphicspath{{imagenes/}{../imagenes/}}
+
+\usepackage[margin=3cm, headheight=13.6pt]{geometry}
+\usepackage{fancyhdr}
+\fancyhf{}
+\lhead{\emph{${1:Cabecera L}}}
+\rhead{\emph{${2:Cabecera R}}}
+\fancyfoot[C]{\thepage}
+
+\usepackage{subfiles}
+
+\renewcommand{\it}[1]{\textit{#1}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\renewcommand{\tt}[1]{\texttt{#1}}
 
 \begin{document}
-	$0
+$0
 \end{document}
 endsnippet
 
@@ -31,12 +45,12 @@ endsnippet
 # de una línea. A es autoexpandir, lo que significa que no hay que presionar
 # ninguna tecla para que se expanda. Las paradas dentro del snippet se
 # representan con $número. La última es $0.
+# Si se utiliza desde visual mode, rodea la selección.
 snippet beg "begin{} \ end{}" bA
 \begin{$1}
-	$0
+	${0:${VISUAL:}}
 \end{$1}
 endsnippet
-
 
 
 # Formateado de texto
@@ -82,7 +96,7 @@ endsnippet
 # Entrar en el modo displayed math.
 snippet dm "Math" wA
 \[
-$1.
+$1
 \]
 $0
 endsnippet
@@ -256,11 +270,11 @@ endsnippet
 snippet tableu "Table environment" b
 \begin{table}[${1:htpb}]
 	\centering
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
 	\begin{tabular}{${5:c}}
 	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
 	\end{tabular}
-	\caption{${2:caption}}
-	\label{tab:${3:label}}
 \end{table}
 endsnippet
 
@@ -298,6 +312,3 @@ snippet desc "Description" b
 	\item[$1] $0
 \end{description}
 endsnippet
-
-
-

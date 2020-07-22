@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: example
+# key: exmpl
+# --
+(defun ${1:$(upcase yas/text)} (${1:placeholder})
+  $0)

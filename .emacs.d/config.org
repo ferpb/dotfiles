@@ -1,15 +1,9 @@
 #+TITLE: Fernando Peña's Emacs configuration
-#+OPTIONS: toc:4 h:4
+#+OPTIONS: toc:4 H:4
 #+STARTUP: content indent
 #+PROPERTY: header-args:emacs-lisp :tangle "~/.emacs.d/init.el"
 
-* Configuration
-** About this file
-:PROPERTIES:
-:CUSTOM_ID: babel-init
-:END:
-<<babel-init>>
-
+* About this file
 This is my Emacs config file. It's written in the literate programming style in
 Org Mode. It's very convenient for organizing the code in sections and
 commenting each block.
@@ -17,10 +11,10 @@ commenting each block.
 This file is inspired on Sacha Chua's Emacs configuration: [[http://pages.sachachua.com/.emacs.d/Sacha.html]]
 
 To tangle the code blocks into a new ~init.el~ file after making some changes,
-use =C-c C-v t= (org-babel-tangle).
+use =C-c C-v t= (~org-babel-tangle~).
 
-** Starting up
-*** Custom startup directory
+* Starting up
+** Custom startup directory
 This file is symlinked, so tell emacs not to start in the actual directory of
 the file.
 
@@ -28,7 +22,7 @@ the file.
 (setq default-directory "~/")
 #+END_SRC
 
-*** Initialize package and add package archives
+** Initialize package and add package archives
 
 #+BEGIN_SRC emacs-lisp
   (package-initialize)
@@ -41,7 +35,7 @@ the file.
   (setq use-package-always-ensure t)
 #+END_SRC
 
-*** Customize
+** Customize
 Configure the file to to store customize settings. I prefer using =setq= instead
 of customize because I find it easier to organize, but when I use it, it stores
 the settings in the next file.
@@ -51,13 +45,13 @@ the settings in the next file.
 (load custom-file)
 #+END_SRC
 
-*** Disable splash screen
+** Disable splash screen
 
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
 
-*** Menu bar, toolbar and scrollbar
+** Menu bar, toolbar and scroll bar
 Disable/enable menu bar (on Linux) and toolbar.
 
 Disable scroll bar.
@@ -68,19 +62,19 @@ Disable scroll bar.
 (toggle-scroll-bar -1)
 #+END_SRC
 
-*** Change Emacs cursor to bar
+** Change Emacs cursor to bar
 
 #+BEGIN_SRC emacs-lisp
 (setq-default cursor-type 'bar)
 #+END_SRC
 
-*** Set font
+** Set font
 
 #+BEGIN_SRC emacs-lisp :tangle no
 (set-default-font "Monaco-12")
 #+END_SRC
 
-*** PATH variable
+** PATH variable
 Make emacs PATH variable equal to user's shell PATH
 
 #+BEGIN_SRC emacs-lisp
@@ -90,33 +84,72 @@ Make emacs PATH variable equal to user's shell PATH
   (exec-path-from-shell-initialize))
 #+END_SRC
 
-*** Load secrets
+** Load secrets
 I keep sensitive information in a separate file.
 
 #+BEGIN_SRC emacs-lisp
 (load "~/Library/Mobile Documents/com~apple~CloudDocs/emacs/.emacs.secrets" t)
 #+END_SRC
 
-*** Global key changes
+** Global key changes
 Change al key to meta for Emacs Mac.
 
 #+BEGIN_SRC emacs-lisp
-(setq mac-option-modifier 'meta)
+  (setq mac-option-modifier 'meta)
 #+END_SRC
 
 Remap =RET= key to ~newline-and-indent~ to indent the line when pressing =RET=
 and start next line with correct indentation.
+The ~newline~ function is rebounded =<C-return>=.
 
 #+BEGIN_SRC emacs-lisp
-(define-key global-map (kbd "RET") 'newline-and-indent)
+  (define-key global-map (kbd "RET") 'newline-and-indent)
+  (define-key global-map (kbd "<C-return>") 'newline)
 #+END_SRC
-     
-** Evil Mode
+
+Translate =ñ= key.
+
+#+begin_src emacs-lisp
+  (define-key key-translation-map (kbd "M-ñ") (kbd "M-;"))
+  (define-key key-translation-map (kbd "C-ñ") (kbd "C-;"))
+#+end_src
+
+Better default keybindings.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
+
+  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+  (global-set-key (kbd "C-M-s") 'isearch-forward)
+  (global-set-key (kbd "C-M-s") 'isearch-backward)
+#+end_src
+
+Press middle button (=<mouse-2>=) with two button mouse
+
+#+BEGIN_SRC emacs-lisp
+(define-key key-translation-map (kbd "<S-mouse-1>") (kbd "<mouse-2>"))
+#+END_SRC
+
+** Disable bell
+
+#+begin_src emacs-lisp
+  (setq visible-bell nil
+        ring-bell-function #'ignore)
+#+end_src
+
+* Evil Mode
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle no
+:END:
+
 I'm using Evil Mode because like Vim keybindings. However, there are some
 inconsistencies across differente modes, so maybe I'll start using Emacs default
 ones.
 
-*** Configure Evil Mode
+** Configure Evil Mode
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
@@ -134,7 +167,7 @@ ones.
     (evil-mode 1))
 #+END_SRC
 
-*** Configure Evil Commentary
+** Configure Evil Commentary
 Configure =evil-commentary= package for commenting more easily.  The command
 =gc= acceps a motion object and it comments it. To comment a line, use =gcc=.
 
@@ -145,7 +178,7 @@ Configure =evil-commentary= package for commenting more easily.  The command
   (evil-commentary-mode))
 #+END_SRC
 
-*** Configure Evil Collection
+** Configure Evil Collection
 It is a collection of Evil bindings for the parts that Evil don't cover by
 default, such as =help-mode=, =M-x calendar=, ...
 
@@ -158,7 +191,7 @@ default, such as =help-mode=, =M-x calendar=, ...
     (evil-collection-init))
 #+END_SRC
 
-*** Configure Evil Surround
+** Configure Evil Surround
 Emulation of =surround.vim= by Tim Pope.
 
 #+BEGIN_SRC emacs-lisp
@@ -168,7 +201,7 @@ Emulation of =surround.vim= by Tim Pope.
     (global-evil-surround-mode 1))
 #+END_SRC
 
-*** Configure Evil Org Mode
+** Configure Evil Org Mode
 Supplemental keybindings =evil-mode= keybindings to =org-mode=
 
 #+BEGIN_SRC emacs-lisp
@@ -184,8 +217,8 @@ Supplemental keybindings =evil-mode= keybindings to =org-mode=
     (evil-org-agenda-set-keys))
 #+END_SRC
 
-** General configuration
-*** Reload Emacs Configuration
+* General configuration
+** Reload Emacs Configuration
 Reload my Emacs configuration file
 
 #+BEGIN_SRC emacs-lisp
@@ -194,7 +227,7 @@ Reload my Emacs configuration file
     (load-file "~/.emacs.d/init.el"))
 #+END_SRC
 
-*** Color Theme
+** Color Theme
 Themes are loaded using customize.
 
 Gruvbox 
@@ -204,7 +237,7 @@ Gruvbox
     :ensure t)
 #+end_src
 
-*** Modifier keys configuration
+** Modifier keys configuration
 I no longer use these, I'm using Karabiner Elements for modifying modifier keys
 mappings.
 
@@ -212,11 +245,12 @@ mappings.
 (setq mac-command-modifier 'control)
 #+END_SRC
 
-*** Parens and pair characters
+** Parens and pair characters
 Highlight matching parens.
 
 #+BEGIN_SRC  emacs-lisp
-(show-paren-mode)
+(show-paren-mode 1)
+(setq show-paren-delay 0)
 #+END_SRC
 
 Activate =electric-pair-mode= for inserting automatically matching pair
@@ -227,6 +261,7 @@ character.
 
 Use =rainbow-delimiters= package. Highlights parens, brackets and braces
 acording to their depth.
+
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-delimiters
   :ensure t
@@ -234,33 +269,39 @@ acording to their depth.
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 
-*** Line numbers
-I use linum mode for displaying line numbers. I tried using
-=global-display-line-numbers-mode=, but I coulnd't customize it to disable
-shifting the code to the right when the number of digits changed.
+** Line numbers
+Enable =display-line-numbers-mode= on programming modes. To avoid shiftings
+lateral effects when scrolling throught the buffer. I set
+=display-line-numbers-width= to one more than the necessary when the buffer has
+80-99 lines.
 
-#+BEGIN_SRC emacs-lisp :tangle no
-(global-display-line-numbers-mode)
-(setq display-line-numbers-grow-only t)
-(setq display-line-numbers-width-start t)
-(setq display-line-numbers-width 4)
-(setq display-line-numbers-widen t)
-(setq-default display-line-numbers 'visual
-              display-line-numbers-current-absolute t
-              display-line-numbers-grow-only t
-              display-line-numbers-width-start t
-              display-line-numbers-width 2
-              display-line-numbers-widen t)
-(global-linum-mode 1)
-(setq linum-format "%-d ")
+#+BEGIN_SRC emacs-lisp
+  (setq display-line-numbers-grow-only t)
+  ;; (setq display-line-numbers-width-start t)
+  ;; Make the left fringe smaller
+  ;; (fringe-mode '(1 . 4))
+
+  (defun calculate-width (n)
+    "Calculate width in O(1) time"
+    (let ((width
+      (if (< n 1)
+          1
+        (+ 1 (floor (/ (log n) (log 10)))))))
+
+      (if (and (>= n 80) (<= n 99))
+          (1+ width)
+        width)))
+
+  (defun my-display-line-numbers-mode-hook ()
+    (setq-local display-line-numbers-width (calculate-width (count-lines (point-max) (point-min)))))
+  (add-hook 'display-line-numbers-mode-hook #'my-display-line-numbers-mode-hook)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook
-	  (lambda () (linum-mode 1)))
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 #+END_SRC
  
-*** Whitespace
+** Whitespace
 Show whitespace at the end of the line.
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -275,24 +316,25 @@ Indicate empty lines at the end of the buffer.
 (setq-default indicate-empty-lines t)
 #+END_SRC
 
-*** Backups
+** Backups
 Save all backup files in the same directory, so they don't appear everywhere :)
 
 #+BEGIN_SRC emacs-lisp
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+  (unless backup-directory-alist
+    (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))))
 #+END_SRC
 
 Backups settings.
 
 #+BEGIN_SRC emacs-lisp
-(setq delete-old-versions -1)
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+  (setq delete-old-versions -1)
+  (setq version-control t)
+  (setq vc-make-backup-files t)
+  (setq auto-save-file-name-transforms `((".*" ,(concat user-emacs-directory "auto-save-list") t)))
 #+END_SRC
 
-*** Ido Mode and Smex
-**** Activate Ido Mode.
+** Ido Mode and Smex
+*** Activate Ido Mode.
 
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t)
@@ -312,30 +354,34 @@ Give permission to create new buffers without asking
   (setq ido-create-new-buffer 'always)
 #+END_SRC
 
-Set order of suggestions in the minibuffer
+set order of suggestions in the minibuffer
 
 #+BEGIN_SRC emacs-lisp
   (setq ido-file-extensions-order '( ".org" ".txt" ".py" ".emacs" ".xml" ".el"
                                      ".ini" ".cfg" ".cnf"))
 #+END_SRC
 
-**** Activate Smex. It's like Ido mode for M-x
+*** Activate Smex. It's like Ido mode for M-x
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+  (use-package smex
+    :ensure t
+    :config
+    (global-set-key (kbd "M-x") 'smex)
+    (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+    ;; This is your old M-x.
+    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
 #+END_SRC
 
-*** Windows
-Faster switching between windows in the same frame using S + arrow keys
+** Windows
+*** Faster switching between windows in the same frame using S + arrow keys
 
 #+BEGIN_SRC emacs-lisp
-(windmove-default-keybindings)
+  (windmove-default-keybindings)
 #+END_SRC
 
-Go to previous other window. This function is complementary to =other-window=
+*** Go to previous other window
+This function is complementary to =other-window=.
 
 #+BEGIN_SRC emacs-lisp
 (defun other-window-backward ()
@@ -345,14 +391,26 @@ Go to previous other window. This function is complementary to =other-window=
 (global-set-key (kbd "\C-x p") 'other-window-backward)
 #+END_SRC
 
-*** Disabled commands
+*** Close and kill next pane
+This function is complementary to =kill-buffer-and-window=.
+
+#+begin_src emacs-lisp
+  (defun other-kill-buffer-and-window ()
+    "If there are multiple windows, close the other window and kill the buffer in it also."
+    (interactive)
+    (other-window 1)
+    (kill-buffer-and-window))
+  (global-set-key (kbd "\C-x 4 o") 'other-kill-buffer-and-window)
+#+end_src
+
+** Disabled commands
 Enable Emacs disable commands.
 
 #+BEGIN_SRC emacs-lisp
 (setq disabled-command-function nil)
 #+END_SRC
 
-*** Undo Tree
+** Undo Tree
 Undo Tree let's you use =C-x u= (=undo-tree-visualize=) to see the undo tree for
 the current buffer and undo to a certain point.
 
@@ -365,20 +423,29 @@ the current buffer and undo to a certain point.
   (setq undo-tree-visualizer-diff t))
 #+END_SRC
 
-*** Change "yes or no" to "y or n"
+** Change "yes or no" to "y or n"
 I'm too lazy to write =yes= or =no=.
 
 #+BEGIN_SRC emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-*** End sentences with single space
-#+BEGIN_SRC 
-(setq sentence-end-double-space nil)
+** End sentences with single space
+
+#+BEGIN_SRC emacs-lisp
+  (setq sentence-end-double-space nil)
 #+END_SRC
 
-** Global editing configuration
-*** Indentation
+** Move to trash when deleting
+
+#+begin_src emacs-lisp
+  (when (string-equal system-type "darwin")
+    (setq delete-by-moving-to-trash t)
+    (setq trash-directory "~/.Trash"))
+#+end_src
+
+* Global editing configuration
+** Indentation
 Set indentation width to 4.
 
 #+BEGIN_SRC emacs-lisp
@@ -392,41 +459,48 @@ Indent using spaces
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
-*** Replace when writing over selection
+TAB tries to indent the current line, and if the line was already indented, then
+tries to complete the thing at point
+
+#+begin_src emacs-lisp
+  (setq tab-always-indent 'complete)
+#+end_src
+
+** Replace when writing over selection
 
 #+BEGIN_SRC emacs-lisp
 (delete-selection-mode 1)
 #+END_SRC
 
-*** Remember cursor position in buffer when saving file
+** Remember cursor position in buffer when saving file
 
 #+BEGIN_SRC emacs-lisp
 (save-place-mode 1)
 #+END_SRC
     
-*** Wrap text to words
+** Wrap text to words
 
 #+BEGIN_SRC emacs-lisp
 (global-visual-line-mode t)
 #+END_SRC
 
-*** Highlight current line
+** Apropos search more extensively
+
+#+begin_src emacs-lisp
+  (setq apropos-do-all t)
+#+end_src
+
+** Highlight current line
 
 #+BEGIN_SRC emacs-lisp :tangle no
 (global-hl-line-mode t)
 #+END_SRC
 
-*** Spell checking
+** Spell checking
 Set Hunspell as spell checking engine and configure it to use English and
 Spanish dictionaries
 
-**** Configure key bindings for spell checking
-
-#+BEGIN_SRC emacs-lisp
-(define-key key-translation-map (kbd "<S-mouse-1>") (kbd "<mouse-2>"))
-#+END_SRC
-
-**** How to install dictionaries in Hunspell
+*** How to install dictionaries in Hunspell
 First, install Hunspell from the command line:
 
 #+BEGIN_SRC bash
@@ -438,8 +512,9 @@ https://github.com/LibreOffice/dictionaries
 or from the OpenOffice Extensions page:
 https://extensions.openoffice.org
 
-Move the dictionary =.aff= and =.dic= files to the =~/Library/Spelling/= folder to
-install them. =oxt= files are compressed with =zip=, so they can be decompressed easily to get the files.
+Move the dictionary =.aff= and =.dic= files to the =~/Library/Spelling/=
+directory to install them. =oxt= files are compressed with =zip=, so they can be
+decompressed easily to get the files.
 
 You can see al the available dictionaries with:
 
@@ -453,7 +528,7 @@ An test if Hunspell can open them with:
 hunspell -d <dict1>,<dict2>,...
 #+END_SRC
 
-**** First try
+*** First try
 [[https://emacs.stackexchange.com/questions/21378/spell-check-with-multiple-dictionaries]]
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -466,10 +541,10 @@ hunspell -d <dict1>,<dict2>,...
     (ispell-hunspell-add-multi-dic "es_ANY"))
 #+END_SRC
 
-**** Second try
+*** Second try
 https://emacs.stackexchange.com/questions/48755/flyspell-does-not-start-form-the-first-try
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (setq ispell-program-name "hunspell")
   ;; you could set `ispell-dictionary` instead but `ispell-local-dictionary' has higher priority
   (setq ispell-dictionary "en_US,es_ES")
@@ -477,18 +552,18 @@ https://emacs.stackexchange.com/questions/48755/flyspell-does-not-start-form-the
   (setq ispell-hunspell-dictionary-alist '(("en_US,es_ES" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US,es_ES") nil utf-8)))
 #+END_SRC
 
-**** Enable flyspell in text-mode
+*** Enable flyspell in text-mode
 But disable it in change-log-mode and log-edit-mode. They are text-mode
 children.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (dolist (hook '(text-mode-hook))
     (add-hook hook (lambda () (flyspell-mode 1))))
   (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
     (add-hook hook (lambda () (flyspell-mode -1))))
 #+END_SRC
 
-**** Enable flyspell for comments in source code
+*** Enable flyspell for comments in source code
 
 #+BEGIN_SRC emacs-lisp :tangle no
   (add-hook 'prog-mode-hook
@@ -496,14 +571,23 @@ children.
               (flyspell-prog-mode)))
 #+END_SRC
 
-*** Set =fill-column= to 80 characters
+** Set =fill-column= to 80 characters
 
 #+BEGIN_SRC emacs-lisp
 (setq-default fill-column 80)
 #+END_SRC
 
-** Coding
-*** Eglot
+** Expand region
+
+#+begin_src emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :config
+    (global-set-key (kbd "C-=") 'er/expand-region))
+#+end_src
+
+* Coding
+** Eglot
 Emacs Polyglot is a very useful Emacs LSP client.
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -511,9 +595,9 @@ Emacs Polyglot is a very useful Emacs LSP client.
     :ensure t)
 #+END_SRC
 
-*** Completion
+** Completion
 Configure completion while programming. [[http://cachestocaches.com/2015/8/c-completion-emacs/]]  
-**** Irony mode
+*** Irony mode
 Configure Irony Mode.
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -536,7 +620,7 @@ Configure Irony Mode.
   (add-hook 'irony-mode-hook 'irony-cbd-autosetup-compile-options))
 #+END_SRC
 
-**** Company mode
+*** Company mode
 Configure Company Mode.
 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -580,20 +664,82 @@ Configure Company Postframe
             desktop-minor-mode-table)
 #+END_SRC
 
-*** Lisp
-Load SLIME module from quicklisp
+** Lisp
+*** Slime
+Load SLIME package
 
-#+BEGIN_SRC emacs-lisp
-  (load (expand-file-name "~/quicklisp/slime-helper.el"))
-#+END_SRC
+#+begin_src emacs-lisp
+  (use-package slime
+    :ensure t
+    :init
+    ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    :config
+    ;; Contributors
+    (setq slime-contribs '(slime-fancy slime-repl slime-scratch slime-trace-dialog))
+    ;; (setq slime-contribs '())
+    ;; Select Lisp implementation
+    (setq inferior-lisp-program "/usr/local/bin/sbcl")
+    (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit))
+#+end_src
 
-Set lisp implementation path
+*** Paredit
 
-#+BEGIN_SRC emacs-lisp
-  (setq inferior-lisp-program "/usr/local/bin/sbcl")
-#+END_SRC
+#+begin_src emacs-lisp
+  (use-package paredit
+    :ensure t
+    :init
+    (add-hook 'lisp-mode-hook #'enable-paredit-mode)
+    (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+    (add-hook 'slime-repl-mode-hook #'enable-paredit-mode))
+#+end_src
 
-*** LSP Mode
+Stop SLIME's REPL from grabbing DEL, which is annoying when backspacing over a
+'('
+
+#+begin_src emacs-lisp
+  (defun override-slime-repl-bindings-with-paredit ()
+    (define-key slime-repl-mode-map
+      (read-kbd-macro paredit-backward-delete-key) nil))
+#+end_src
+
+*** Highlight
+Highligt defined symbols
+
+#+begin_src emacs-lisp
+  (use-package highlight-quoted
+    :ensure t
+    :hook ((emacs-lisp-mode lisp-mode) . highlight-quoted-mode))
+#+end_src
+
+Highlight quoted symbols
+
+#+begin_src emacs-lisp
+    (use-package highlight-defined
+      :ensure t
+      :hook ((emacs-lisp-mode lisp-mode) . highlight-defined-mode))
+#+end_src
+
+*** Move to begining/end of expression
+
+#+begin_src emacs-lisp
+  (defun begining-expression ()
+    "Move point to the begining of the expression at point."
+    (interactive)
+    (backward-up-list 1 t)
+    (forward-char))
+  (global-set-key (kbd "C-<") 'begining-expression)
+
+  (defun end-expression ()
+    "Move point to the end of the expression at point."
+    (interactive)
+    (backward-up-list 1 t)
+    (forward-sexp)
+    (backward-char))
+  (global-set-key (kbd "C->") 'end-expression)
+#+end_src
+
+** LSP Mode
 https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
 
 #+begin_src emacs-lisp :tangle no
@@ -642,7 +788,7 @@ https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
     (add-hook 'lsp-after-initialize-hook 'lsp-set-cfg))
 #+end_src
 
-*** LSP Mode 2
+** LSP Mode 2
 #+begin_src emacs-lisp
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "s-l")
@@ -675,19 +821,19 @@ https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
         company-idle-delay 0.0)
 #+end_src
 
-** Org Mode
+* Org Mode
 Configuration for Org Mode
 
 #+BEGIN_SRC emacs-lisp
 (require 'org)
 #+END_SRC
 
-*** Load Org Templates
+** Load Org Templates
 #+BEGIN_SRC emacs-lisp
 (require 'org-tempo)
 #+END_SRC
 
-*** Mappings for Org Mode
+** Mappings for Org Mode
 Define mappings as suggested in: [[https://orgmode.org/guide/Introduction.html#Introduction]]
 
 #+BEGIN_SRC emacs-lisp
@@ -696,7 +842,8 @@ Define mappings as suggested in: [[https://orgmode.org/guide/Introduction.html#I
 (global-set-key (kbd "C-c c") 'org-capture)
 #+END_SRC
 
-*** Modified variables
+** Modified variables
+**** Indentation
 I like storing my Org files flushed to left and using =org-indent=mode= to se
 the lines virtually indented.
 
@@ -713,14 +860,25 @@ files that I'd like to see indented.
 #+STARTUP: indent
 #+END_SRC
 
-*** LaTeX
+**** Use property inheritance
+
+#+begin_src emacs-lisp
+  (setq org-use-property-inheritance t)
+#+end_src
+
+** LaTeX
 
 #+BEGIN_SRC emacs-lisp
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
 #+END_SRC
 
-** LaTeX
-*** Configure AUCTeX
+** Don't reposition text when expanding
+#+begin_src emacs-lisp
+  (remove-hook 'org-cycle-hook
+               #'org-optimize-window-after-visibility-change)
+#+end_src
+* LaTeX
+** Configure AUCTeX
 
 #+BEGIN_SRC emacs-lisp
 (use-package auctex
@@ -730,7 +888,7 @@ files that I'd like to see indented.
   (setq TeX-auto-save t))
 #+END_SRC
 
-*** Configure Latex Preview Pane
+** Configure Latex Preview Pane
 
 #+BEGIN_SRC emacs-lisp
   (use-package latex-preview-pane
@@ -740,3 +898,86 @@ files that I'd like to see indented.
 #+END_SRC
 
 To use it on the fly, use: =M-x latex-preview-pane-mode=.
+
+** RefTeX
+
+#+begin_src emacs-lisp
+  (add-hook 'latex-mode-hook
+            (progn
+              (reftex-mode)))
+#+end_src
+
+* Yasnippet
+
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t)
+    (yas-reload-all)
+    (yas-global-mode 1))
+#+end_src
+
+* Magit
+
+#+begin_src emacs-lisp
+  (use-package magit
+    :ensure t
+    :config
+    ;; Open magit status
+    (global-set-key (kbd "C-x g") 'magit-status)
+    ;; Open transient of transients from non-Magit buffers
+    ;; Same as pressing h from a Magit buffer
+    (global-set-key (kbd "C-x M-g") 'magit-dispatch))
+#+end_src
+
+* ERC
+Better display margin, avoid some notifications and load notifications and spelling modules.
+
+#+begin_src emacs-lisp
+  (use-package erc
+    :custom
+    (erc-fill-function 'erc-fill-static)
+    (erc-fill-static-center 15)
+    (erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
+                               "324" "329" "332" "333" "353" "477"))
+    :config
+    ;; (add-to-list 'erc-modules 'notifications)
+    ;; (add-to-list 'erc-modules 'spelling)
+    (erc-services-mode 1)
+    (erc-update-modules))
+#+end_src
+
+The package =erc-hl-nicks= associates a color with every nick and =erc-image=
+allows displaying images on the buffer, without having to click a link.
+
+#+begin_src emacs-lisp
+  (use-package erc-hl-nicks
+    :after erc)
+
+  (use-package erc-image
+    :after erc)
+#+end_src
+
+* Ediff
+** Don't open additional frames for Ediff
+
+#+begin_src emacs-lisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+end_src
+
+* Dired
+** Move files between split panes
+If another window contains a dired buffer, dired suggest to move files to that
+buffer when using =R=.
+
+#+begin_src emacs-lisp
+  (setq dired-dwim-target t)
+#+end_src
+
+** Human readable file sizes
+
+#+begin_src emacs-lisp
+  (setq dired-listing-switches "-alh")
+#+end_src

@@ -15,13 +15,13 @@
    '(company-pseudo-tooltip-fronend company-echo-metadata-frontend))
  '(company-require-match nil)
  '(company-tooltip-align-annotation t t)
- '(custom-enabled-themes '(gruvbox-dark-hard))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("4cf9ed30ea575fb0ca3cff6ef34b1b87192965245776afa9e9e20c17d115f3fb" "aded61687237d1dff6325edb492bde536f40b048eab7246c61d5c6643c696b7f" default))
+   '("b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "a06658a45f043cd95549d6845454ad1c1d6e24a99271676ae56157619952394a" "939ea070fb0141cd035608b2baabc4bd50d8ecc86af8528df9d41f4d83664c6a" "4cf9ed30ea575fb0ca3cff6ef34b1b87192965245776afa9e9e20c17d115f3fb" "aded61687237d1dff6325edb492bde536f40b048eab7246c61d5c6643c696b7f" default))
  '(delete-selection-mode t)
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(undo-tree which-key dap-mode lsp-ui lsp-mode auctex gruvbox-theme company-posframe company-postframe company-box latex-preview-pane latex-preview-pane-mode evil-org evil-surround evil-collection eglot rainbow-delimiters evil-commentary evil exec-path-from-shell smex nlinum))
+   '(slime-fancy slime erc-image erc-hl-nicks highlight-defined highlight-quoted magit yasnippet-snippets yasnippet expand-region paredit undo-tree which-key dap-mode lsp-ui lsp-mode auctex gruvbox-theme company-posframe company-postframe company-box latex-preview-pane latex-preview-pane-mode evil-org evil-surround evil-collection eglot rainbow-delimiters evil-commentary evil exec-path-from-shell smex nlinum))
  '(pdf-view-midnight-colors '("#fdf4c1" . "#282828")))
 
 (custom-set-faces
@@ -29,4 +29,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-defined-function-name-face ((t (:inherit font-lock-keyword-face))))
+ '(highlight-quoted-quote ((t (:inherit highlight-quoted-symbol))))
+ '(line-number ((t (:inherit (fill-column-indicator default)))))
+ '(org-block ((t (:inherit default))))
+ '(slime-repl-inputed-output-face ((t (:inherit default)))))

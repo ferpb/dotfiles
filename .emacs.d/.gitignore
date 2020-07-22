@@ -17,3 +17,5 @@ elpa
 backups
 auto-save-list
 url
+eshell
+transient

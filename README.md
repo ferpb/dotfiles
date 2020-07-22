@@ -24,6 +24,8 @@ ln -s ~/dotfiles/.gitconfig ~/.gitconfig  # Cuidado
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.vim ~/.vim
 
+ln -s ~/dotfiles/.config/nvim ~/.config/nvim
+
 ln -s ~/dotfiles/.emacs.d ~/.emacs.d
 
 ln -s ~/dotfiles/.config/karabiner ~/.config/karabiner

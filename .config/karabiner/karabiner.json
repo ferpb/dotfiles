@@ -108,60 +108,6 @@
                         ]
                     },
                     {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "org.gnu.Emacs"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "emacs left_command to left_control",
-                                "from": {
-                                    "key_code": "left_command",
-                                    "modifiers": {
-                                        "optional": [
-                                            "option"
-                                        ]
-                                    }
-                                },
-                                "to": {
-                                    "key_code": "left_control"
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "org.gnu.Emacs"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "emacs right_command to right_control",
-                                "from": {
-                                    "key_code": "right_command",
-                                    "modifiers": {
-                                        "optional": [
-                                            "option"
-                                        ]
-                                    }
-                                },
-                                "to": {
-                                    "key_code": "right_control"
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "emacs Change return to option if pressed with other keys, to return if pressed alone",
                         "manipulators": [
                             {
@@ -225,6 +171,113 @@
                                         "key_code": "escape"
                                     }
                                 ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "org.gnu.Emacs"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "emacs left_command to left_control",
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": {
+                                        "optional": [
+                                            "option",
+                                            "shift",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": {
+                                    "key_code": "left_control"
+                                },
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "org.gnu.Emacs"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "emacs right_command to right_control",
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": {
+                                        "optional": [
+                                            "option",
+                                            "shift",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": {
+                                    "key_code": "right_control"
+                                },
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "manipulators": [
+                            {
+                                "description": "Ctrl+Tab to Cmd+Tab",
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_control"
+                                        ],
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": [
+                                            "right_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "org.vim.MacVim"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "vim right_command to right_control",
+                                "from": {
+                                    "key_code": "right_command"
+                                },
+                                "to": {
+                                    "key_code": "right_control"
+                                },
                                 "type": "basic"
                             }
                         ]

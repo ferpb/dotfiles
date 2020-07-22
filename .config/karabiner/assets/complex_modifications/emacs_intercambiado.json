@@ -17,7 +17,9 @@
                         "key_code": "left_command",
                         "modifiers": {
                             "optional": [
-                                "option"
+                                "option",
+                                "shift",
+                                "control"
                             ]
                         }
                     },
@@ -44,7 +46,9 @@
                         "key_code": "right_command",
                         "modifiers": {
                             "optional": [
-                                "option"
+                                "option",
+                                "shift",
+                                "control"
                             ]
                         }
                     },

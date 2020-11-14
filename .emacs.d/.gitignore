@@ -1,17 +1,18 @@
 # Emacs
 
-## Ficheros
+## Files
 .lsp-session*
 .org-id-locations
-
 bookmarks
 ido.last
 places
 recentf
 tramp
+smex-items
+.dap-breakpoints
+amx-items
 
-
-## Directorios
+## Directories
 games
 elpa
 backups
@@ -19,3 +20,4 @@ auto-save-list
 url
 eshell
 transient
+.cache

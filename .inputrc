@@ -1,9 +1,19 @@
 set completion-ignore-case on
 set show-all-if-ambiguous on
 set menu-complete-display-prefix on
-TAB: menu-complete
 
-set editing-mode vi
+set colored-completion-prefix on
+# set colored-stats on
+
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+set editing-mode emacs
+
+$if mode=emacs
+    "\C-/":undo
+$endif
+
 
 $if mode=vi
     # Display vim mode
@@ -26,7 +36,10 @@ $if mode=vi
 	"\C-l":clear-screen
 	"\033f": forward-word
 	"\033b": backward-word
+
+	bind -m vi-normal "\\C-l":clear-screen
 $endif
+
 
 # Remove delay when pressing ESC
 set keyseq-timeout 0

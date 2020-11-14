@@ -10,8 +10,8 @@ parse_git_branch() {
 
 export PS1="\[${bold}\]\u\[${normal}\]:\W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
-
 # Bash configuration
+export EDITOR=nvim
 export CLICOLOR=1
 export HISTSIZE=500000
 export HISTFILESIZE=1000000
@@ -40,6 +40,13 @@ export PATH="$PATH:`pwd`/flutter/bin"
 # bin directory
 export PATH="$PATH:~/bin"
 
+# LilyPond
+export PATH="$PATH:/Applications/LilyPond.app/Contents/Resources/bin"
+export LYEDITOR="nvr --remote '+call cursor(%(line)s, %(column)s)' %(file)s"
+
+# Neovim
+export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
+command -v nvim > /dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 # Aliases
 
@@ -65,3 +72,8 @@ alias matlab="/Applications/MATLAB_R2018b.app/bin/matlab"
 
 ## Procesadores de lenguajes
 alias minilengcompiler="java -cp ~/ProcesadoresLenguajes/workspace/MiniLeng/bin/ analizador.minilengcompiler"
+
+# Emacs
+alias emacs="ec"
+alias emacsd="\emacs --daemon"
+

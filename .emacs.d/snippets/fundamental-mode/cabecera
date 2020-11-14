@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: cabecera
+# key: cabecera
+# --
+#######################
+# Author: ${1:Fernando}
+`(when buffer-file-name
+   (concat "# Filename: " (file-name-nondirectory buffer-file-name)))`
+# Copyright `(format-time-string "%Y")`
+#######################

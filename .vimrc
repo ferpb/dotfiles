@@ -3,6 +3,7 @@ filetype on
 filetype plugin on
 filetype indent on
 
+
 " ========== General configuration ==========
 source ~/.vim/packages.vim
 
@@ -27,6 +28,7 @@ let b:is_posix=1
 
 set ttimeout
 set ttimeoutlen=100
+set updatetime=100
 
 " If last line is wrapped and doesn't fit in the buffer
 " show as much as posible.
@@ -50,6 +52,7 @@ set noerrorbells visualbell t_vb=
 " Set gq program to 'par'
 set formatprg=par\ -w79r
 
+set path=.,**
 
 " ========== Search ==========
 set incsearch
@@ -61,14 +64,15 @@ set hlsearch
 " ========== Colorscheme ==========
 syntax on
 
-if $TERM_PROGRAM == "iTerm.app"
+" if $TERM_PROGRAM == "iTerm.app"
+" if has('nvim')
     " let g:gruvbox_constrast_dark = 'hard'
     let g:gruvbox_invert_selection = '0'
     colorscheme gruvbox
     set background=dark
-endif
+" endif
 
-" Better terminal colors
+" Better terminal colors on Vim
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum]"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum]"
@@ -92,16 +96,31 @@ if has("gui_running") && has("gui_macvim")
 endif
 
 
+" ========== Syntax highlighting groups ==========
+" Show highlighting groups for current word
+" http://vimcasts.org/transcripts/25/en/
+nmap <C-S-s> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')),
+  \       'synIDattr(v:val, "name")')
+endfunc
+
+
 " ========== Command mode completion ==========
 set complete-=i
 set wildmenu
 " Improve completion
-set wildmode=longest,full
-
+set wildmode=longest:full,full
+set wildignorecase
+set wildignore="*.git/*,*.o"
 
 " ========== Indentation ==========
 "http://vimcasts.org/episodes/tabs-and-spaces/
 set autoindent
+set smartindent
 set smarttab
 set tabstop=4
 set softtabstop=4
@@ -132,7 +151,7 @@ set listchars=tab:▸\ ,eol:¬,trail:·,nbsp:~
 
 " ========== 80 characters line indicator ==========
 " Highligt all characters in line 81
-highlight ColorColumn ctermbg=magenta
+" highlight ColorColumn ctermbg=magenta guibg=darkmagenta
 call matchadd('ColorColumn', '\%81v', 100)
 
 
@@ -147,34 +166,44 @@ set undofile
 " ========== Autoread ==========
 " Detect when current file is changed from another program and reload it
 set autoread
-" au " Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
-" Notification after file change
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-autocmd FileChangedShellPost *
-            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl NoneFocusGained,BufEnter * checktime
+augroup autoread_group
+    autocmd!
+    " Triger `autoread` when files changes on disk
+    " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+    " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+                \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+    " Notification after file change
+    " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+    autocmd FileChangedShellPost *
+                \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl NoneFocusGained,BufEnter * checktime
+augroup END
 
 
 " ========== General mappings ==========
 let g:mapleader="\<Space>"
 let maplocalleader="\<Space>"
 
+nmap <A-h> <C-w>h
+nmap <A-j> <C-w>j
+nmap <A-k> <C-w>k
+nmap <A-l> <C-w>l
 
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+tnoremap <A-h> <c-\><c-n><c-w>h
+tnoremap <A-j> <c-\><c-n><c-w>j
+tnoremap <A-k> <c-\><c-n><c-w>k
+tnoremap <A-l> <c-\><c-n><c-w>l
+" Exit terminal mode
+tnoremap <A-[> <C-\><C-n>
+" Insert register content from terminal mode
+tnoremap <expr> <A-r> '<C-\><C-n>"'.nr2char(getchar()).'pi'
 
 nnoremap <leader>e :e $MYVIMRC<CR>
-noremap <leader>s :source $MYVIMRC<CR>
-
-" Delete trailing whitespace and newlines on save
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre * :%s/\n\+\%$//e
+nnoremap <leader>v :e ~/.vimrc<CR>
+nnoremap <leader>p :e ~/.vim/packages.vim<CR>
+nnoremap <leader>s :source $MYVIMRC<CR>
 
 " Replace ex mode with gw
 vmap Q gw
@@ -183,24 +212,27 @@ nmap Q gwap
 " Buffer mappings
 map <leader>j :bnext<cr>
 map <leader>k :bprevious<cr>
-map <leader>d :bprevious<cr>:bdelete! #<cr>
+map <leader>d :b #<cr>:bdelete! #<cr>
+map <leader>b :b <C-d>
 
 " Tab mappings
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-
-map <leader>t<leader> :tabnext
+map <leader>tm :tabmove<cr>
 
 " Change directory to current file's directory
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Open vertical right terminal
-command Terminal vertical below terminal
+command! Terminal vertical below terminal
 
 " Replace shortcut
 nmap S :%s//g<Left><Left>
+
+" Move by visual lines
+nmap k gk
+nmap j gj
 
 
 " ========== Cursor settings ==========
@@ -217,6 +249,36 @@ endif
 "  5 -> blinking vertical bar
 "  6 -> solid vertical bar
 
+:hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+
+
+
+" ========== Trailing whitespace ==========
+augroup trailingwhitespace_group
+    autocmd!
+    autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+augroup END
+
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search (search register), and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    " Clean trailing whitespace at the end of the lines
+    %s/\s\+$//e
+    " Clean trailing empty lines at the end of the file
+    %s/\n\+\%$//e
+    " Clean up:
+    " Delete search history
+    call histdel('/', -1)
+    call histdel('/', -1)
+    " Restore search register
+    let @/=_s
+    " Restore cursor position
+    call cursor(l, c)
+endfunction
+
 
 " ========== Plugin configuration ==========
 " netrw
@@ -231,6 +293,8 @@ runtime macros/matchit.vim
 nnoremap <C-p> :Files<CR>
 " Search over all files of actual repository
 " nnoremap <C-p> :GFiles<CR>
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
 
 " EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -256,7 +320,7 @@ let g:vimtex_compiler_latexmk = {
     \}
 
 " Vim-Slime
-let g:slime_target = "vimterminal"
+let g:slime_target = "tmux"
 let g:slime_vimterminal_cmd = "clisp"
 let g:slime_vimterminal_config = {"term_finish": "close"}
 
@@ -283,3 +347,18 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 nmap <leader>gs :G<cr>
 nmap <leader>gj :diffget //3<cr>
 nmap <leader>gf :diffget //2<cr>
+
+" LilyPond
+augroup lilypond_group
+    " Commentary
+    autocmd FileType lilypond setlocal commentstring=%\ %s
+    autocmd FileType lilypond setlocal dictionary+=/Applications/LilyPond.app/Contents/Resources/share/lilypond/current/vim/syntax/lilypond-words
+    autocmd BufWritePost *.ly call feedkeys("\<Esc>|") | silent! make | cw | call feedkeys("\<Enter>")
+augroup END
+
+" Undo Tree
+nnoremap <F5> :UndotreeToggle<cr>
+
+" Python
+let python_highlight_space_errors = 0
+let g:python_highlight_all = 1

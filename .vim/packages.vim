@@ -37,13 +37,15 @@ call minpac#add('junegunn/fzf.vim')
 
 call minpac#add('lervag/vimtex')
 
+" Colorschemes
 call minpac#add('morhetz/gruvbox')
 call minpac#add('lifepillar/vim-solarized8')
 call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('arcticicestudio/nord-vim')
+call minpac#add('phanviet/vim-monokai-pro')
 
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 
-call minpac#add('arcticicestudio/nord-vim')
 
 call minpac#add('jpalardy/vim-slime')
 
@@ -59,10 +61,23 @@ call minpac#add('tpope/vim-repeat')
 call minpac#add('guns/vim-sexp')
 call minpac#add('tpope/vim-sexp-mappings-for-regular-people')
 
-call minpac#add('kovisoft/slimv')
+" call minpac#add('kovisoft/slimv')
 
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-vinegar')
 
 call minpac#add('tpope/vim-obsession')
 call minpac#add('tpope/vim-rsi')
+
+call minpac#add('mbbill/undotree')
+
+" call minpac#add('numirias/semshi')
+
+" call minpac#add('vim-python/python-syntax')
+
+call minpac#add('ap/vim-css-color')
+call minpac#add('airblade/vim-gitgutter')
+" call minpac#add('sheerun/vim-wombat-scheme')
+call minpac#add('w0ng/vim-hybrid')
+call minpac#add('nanotech/jellybeans.vim')
+call minpac#add('romainl/Apprentice')

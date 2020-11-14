@@ -10,6 +10,20 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " This disables echoing completion messages on the command line
 set shortmess+=c
 
+" Signcolumn
+set signcolumn=auto
+
+function! SignColumnToggle()
+    if &signcolumn == "yes"
+        set signcolumn=auto
+    else
+        set signcolumn=yes
+    endif
+endfunction
+
+command! SignColumnToggle call SignColumnToggle()
+
+
 " Consider dashed identifiers when autocompleting (this-is-a-variable)
 set iskeyword+=-
 
